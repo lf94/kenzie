@@ -2,6 +2,8 @@
 
 A parametric stand which can hold a variety of objects at adjustable angles.
 
+![A picture of the stand.](./raster.png)
+
 This stand's default holding dimensions are 70mm by 162mm - big enough for a
 smartphone.
 
