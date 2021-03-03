@@ -3,7 +3,9 @@
 A foldable, parametric stand which can hold a variety of objects at adjustable
 angles.
 
-![A picture of the stand.](./raster.png)
+![The front of the stand.](./front.png)
+
+![The back of the stand.](./front.png)
 
 This stand's default holding dimensions are 70mm by 162mm - big enough for a
 smartphone. Don't let this stop you from adjust the parameters to generate new
