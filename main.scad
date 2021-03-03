@@ -1,5 +1,5 @@
 //
-// Kenzie Stand ⓒ Lee Fallat 2021
+// Limbani Stand CC-BY-SA Lee Fallat 2021
 //
 
 // The Belfry OpenScad Library used for filleting cubes.
@@ -7,7 +7,7 @@ include <BOSL/constants.scad>
 use <BOSL/shapes.scad>
 
 // This adjusts the number of fragments in shapes.
-$fn = 20;
+$fn = 50;
 
 // A number to make things barely touch or extend.
 epsilon = 0.05;
@@ -26,7 +26,8 @@ stand_lip_length = 20.0;
 // The following parameters are derived or fixed.
 //
 
-arm_height  = (stand_height / 2.0) - stand_thickness;
+arm_height = (stand_height / 2.0);
+arm_width = stand_width / 7.0;
 
 clip_radius = stand_thickness;
 clip_height_scale = 1.5;
@@ -77,8 +78,8 @@ module kick_cuts(height, thickness, spacing) {
     translate([0, 0, n * cut_height])
     rotate([90, 0, 0])
     kick_cut(
-      thickness,
-      thickness,
+      thickness + (epsilon * 4.0),
+      thickness + (epsilon * 8.0),
       thickness
     );
   }
@@ -113,7 +114,7 @@ module clip_female(depth, radius) {
     );
 
     translate([0, (radius / -2.0) + (epsilon * 10.0), 0])
-    clip_male(depth, radius);
+    clip_male(depth, (radius + epsilon * 2.0));
   }
 }
 
@@ -122,7 +123,6 @@ module clip_female(depth, radius) {
 //
 
 module face(width, depth, height, lip_length) {
-  clip_top_depth    = width / 15.0;
   clip_bottom_depth = kick_width / 5.0;
   clip_lip_depth    = width / 5.0;
 
@@ -142,7 +142,6 @@ module face(width, depth, height, lip_length) {
       0,
       (height / -2.0) + (clip_height / 2.0) - epsilon
     ])
-    color([1,0,0])
     cube([
       lip_rotator_gap + epsilon,
       depth + epsilon,
@@ -154,7 +153,6 @@ module face(width, depth, height, lip_length) {
       0,
       (height / -2.0) + (clip_height / 2.0) - epsilon
     ])
-    color([1,0,0])
     cube([
       lip_rotator_gap + epsilon,
       depth + epsilon,
@@ -163,13 +161,13 @@ module face(width, depth, height, lip_length) {
   }
  
   // The  clips to attach the arm and kick. 
-  translate([0, -depth, (height / 2.0) - (clip_radius * 1.5) / 2.0])
-  clip_female(clip_top_depth, clip_radius);
+  translate([0, -depth + (epsilon * 10.0), (height / 2.0) - (clip_radius * 1.5) / 2.0])
+  clip_female(arm_width, clip_radius);
 
-  translate([(-(kick_width / 2.0)) + (clip_bottom_depth / 2.0), -depth, 0])
+  translate([(-(kick_width / 2.0)) + (clip_bottom_depth / 2.0), -depth + (epsilon * 10.0), 0])
   clip_female(clip_bottom_depth, clip_radius);
 
-  translate([-(-(kick_width / 2.0)) - (clip_bottom_depth / 2.0), -depth, 0])
+  translate([-(-(kick_width / 2.0)) - (clip_bottom_depth / 2.0), -depth + (epsilon * 10.0), 0])
   clip_female(clip_bottom_depth, clip_radius);
 
   // Lip rotators
@@ -190,15 +188,33 @@ module face(width, depth, height, lip_length) {
 }
 
 module lip(width, depth, height) {
-  stub_height =  height + (clip_radius * clip_depth_scale);
+  stub_height = ((height * 2.0) - ((clip_height - (height * 2.0)) / 2.0)) - epsilon;
 
   // The lip
-  cuboid(
-    [width, depth, height],
-    center = true,
-    edges = EDGES_Z_BK,
-    fillet = height / 2.0
-  );
+  difference() {
+    cuboid(
+      [width, depth, height],
+      center = true,
+      edges = EDGES_Z_BK,
+      fillet = height / 2.0
+    );
+
+    // Gap to connect face
+    translate([
+      0,
+      (depth / -2.0) + (height / 2.0),
+      0
+    ])
+    cuboid([
+        width - ((lip_rotator_stub  - (epsilon * 20.0)) * 2.0),
+        height + (epsilon * 10.0),
+        (stub_height / 2.0) + epsilon
+      ],
+      center = true,
+      edges = EDGES_Z_BK,
+      fillet = height / 2.0
+    );
+  }
 
   // Left lip rotator
   translate([
@@ -209,7 +225,7 @@ module lip(width, depth, height) {
   cuboid(
     [lip_rotator_stub - (epsilon * 20.0), height, stub_height],
     center = true,
-    edges = EDGES_Z_FR,
+    edges = EDGES_Z_FR + EDGE_TOP_BK,
     fillet = height / 2.0
   );
 
@@ -230,7 +246,7 @@ module lip(width, depth, height) {
   cuboid(
     [lip_rotator_stub - (epsilon * 20.0), height, stub_height],
     center = true,
-    edges = EDGES_X_TOP,
+    edges = EDGES_Z_FR + EDGE_TOP_BK,
     fillet = height / 2.0
   );
 
@@ -244,34 +260,33 @@ module lip(width, depth, height) {
 }
 
 module arm(width, height, thickness, plug_width) {
-  thickness_smaller = thickness - (epsilon * 4.0);
-
   translate([0, 0, (height / 2.0) - (clip_radius / 2.0)])
-  clip_male(width * 2.0, thickness);
+  clip_male(width, thickness);
 
-  translate([0, 0,((height / 2.0) - (clip_radius * 2.0)) - (thickness / 2)])
-  cuboid(
-    [width * 2.0, thickness, thickness * 2.0],
-    center = true,
-    edges = EDGES_Y_BOT,
-    fillet = thickness / 3.0
-  );
+  difference() {
+    translate([0, 0, -thickness])
+    cuboid(
+      [width, thickness, height - thickness],
+      center = true,
+      edges = EDGES_X_BOT,
+      fillet = thickness / 2.0
+    );
 
-  translate([0, 0, -thickness])
-  cuboid(
-    [width, thickness_smaller, height - thickness],
-    center = true,
-    edges = EDGES_X_FR + EDGES_X_BK,
-    fillet = thickness / 3.0
-  );
-
-  translate([0, 0, -(height / 3.0)])
-  cuboid(
-    [width * 3, thickness_smaller, thickness_smaller],
-    center = true,
-    edges = EDGES_X_FR,
-    fillet = thickness / 3.0
-  );
+    translate([width / -3.0, 0, (height / -2.0) + (thickness / 2.0)])
+    cuboid(
+      [(width / 3.0) + epsilon, thickness + epsilon, (thickness * 2.0) + epsilon],
+      center = true,
+      edges = EDGE_TOP_RT,
+      fillet = thickness / 2.0
+    );
+    translate([width / 3.0, 0, (height / -2.0) + (thickness / 2.0)])
+    cuboid(
+      [(width / 3.0) + epsilon, thickness + epsilon, (thickness * 2.0) + epsilon],
+      center = true,
+      edges = EDGE_TOP_LF,
+      fillet = thickness / 2.0
+    );
+  }
 }
 
 module kick(width, height, thickness, cut_spacing) {
@@ -299,14 +314,15 @@ module stand() {
   translate([0, 0, 0])
   face(stand_width, stand_thickness, stand_height, stand_lip_length);
 
-  translate([0, (stand_lip_length + stand_thickness) / 2.0, (-stand_thickness * 2) - (stand_height / 2.0)])
+  translate([0, (stand_lip_length / 2.0) - (stand_thickness * 2.0), (stand_height / -2.0) - stand_thickness])
   lip(stand_width, stand_lip_length, stand_thickness);
 
-  translate([0, -stand_thickness * 4, (stand_height / 4.0)])
-  arm(stand_thickness * 2.0, arm_height, stand_thickness, stand_thickness);
+  translate([0, -stand_thickness * 4.0, (arm_height / 2.0)])
+  arm(arm_width, arm_height, stand_thickness, stand_thickness);
 
-  translate([0, -stand_thickness * 8, -(stand_height / 4.0)])
+  translate([0, -stand_thickness * 8.0, (kick_height / -2.0) - (clip_height / 1.5)])
   kick(kick_width, kick_height, stand_thickness, kick_cut_spacing);
 }
 
+color([0.95,0.95,0.95])
 stand();
