@@ -1,5 +1,5 @@
 //
-// Limbani Stand CC-BY-SA Lee Fallat 2021
+// Limbani Stand CC BY-NC-SA Lee Fallat 2021
 //
 
 include <./constants.scad>
