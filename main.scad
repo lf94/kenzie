@@ -2,7 +2,7 @@
 // Limbani Stand CC BY-NC-SA Lee Fallat 2021
 //
 
-include <./constants.scad>
+include <./config.scad>
 use <./parts/arm.scad>
 use <./parts/clip.scad>
 use <./parts/face.scad>

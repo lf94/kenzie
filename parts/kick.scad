@@ -1,4 +1,4 @@
-include <../constants.scad>
+include <../config.scad>
 use <./clip.scad>
 
 //

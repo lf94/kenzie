@@ -1,4 +1,4 @@
-include <../constants.scad>
+include <../config.scad>
 
 function clip_male_height(radius) = (radius * 2.0) + (radius * 2.0);
 function clip_female_height(radius) = radius * 3.0;

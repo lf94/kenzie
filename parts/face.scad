@@ -1,4 +1,4 @@
-include <../constants.scad>
+include <../config.scad>
 use <./clip.scad>
 
 module face(dimensions, arm_width, kick_width, rotator_gap)
