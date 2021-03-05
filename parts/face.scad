@@ -62,14 +62,14 @@ module face(dimensions, arm_width, kick_width, rotator_gap)
   // The clips to attach the lip to the face.
   translate([
     (width / -2.0) + (rotator_gap / 2.0) + stand_width(rotator_gap) + extrude,
-    clip_radius / 3.0,
+    extrude,
     (height / -2.0) + (clip_female_height(clip_radius) / 2.0)])
   rotate([180, 0, 0])
   clip_female(rotator_gap, clip_radius);
 
   translate([
     (width / 2.0) - (rotator_gap / 2.0) - stand_width(rotator_gap) - extrude,
-    clip_radius / 3.0,
+    extrude,
     (height / -2.0) + (clip_female_height(clip_radius) / 2.0)])
   rotate([180, 0, 0])
   clip_female(rotator_gap, clip_radius);

@@ -40,29 +40,41 @@ module clip_male(width, radius) {
 
 module clip_female(width, radius) {
   cylinder_stand_width = stand_width(width);
+  clip_width = width - (cylinder_stand_width * 2.0) - (extrude * 2.0);
 
   rotate([0, 0, 180])
   difference() {
     cube([
-        width - (cylinder_stand_width * 2.0) - (extrude * 2.0),
+        clip_width,
         radius * 3.0,
         radius * 3.0
       ], center = true
     );
 
-    translate([0, radius, 0])
-    cube([width, radius * 2.0, radius * 1.66], center = true);
-
     // The "pinchers" for the pin to pass to be secure.
-    translate([0, (extrude * 4.0), radius * -1.5])
-    cube([width / 2.0, radius * 2.0, radius * 3.0]);
+    translate([0, radius / 2.0, radius * -1.5])
+    cube([clip_width / 2.0, radius * 2.0, radius * 3.0]);
 
-    translate([width / -2.0, (extrude * 4.0), radius * -1.5])
-    cube([width / 2.0, radius * 2.0, radius * 3.0]);
-
+    translate([clip_width / -2.0, radius / 2.0, radius * -1.5])
+    cube([clip_width / 2.0, radius * 2.0, radius * 3.0]);
 
     translate([0, 0, 0])
     rotate([0, 90, 0])
-    cylinder(width, r = radius, center = true);
+    cylinder(clip_width, r = radius, center = true);
   }
+
+  // The tips of the "pinchers".
+  rotate([0, 90, 0])
+  translate([-radius, radius / -1.5, 0])
+  cylinder(clip_width, r = radius / 5.0, center = true);
+
+  translate([0, radius / -1.5, (radius * 1.5) - ((radius / 2.0) / 2.0)])
+  cube([clip_width, radius / 2.5, radius / 2.0], center = true);
+
+  rotate([0, 90, 0])
+  translate([radius, radius / -1.5, 0])
+  cylinder(clip_width, r = radius / 5.0, center = true);
+
+  translate([0, radius / -1.5, -(radius * 1.5) + ((radius / 2.0) / 2.0)])
+  cube([clip_width, radius / 2.5, radius / 2.0], center = true);
 }
