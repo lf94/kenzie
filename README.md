@@ -25,6 +25,15 @@ OpenSCAD and you'll see the full result.
 NOTE: OpenCSG mode has a lot of "z-fighting", meaning you'll see a lot of
 flicking faces. This is ok - when rendering, this is resolved.
 
+## Printing
+
+This model was built with a 0.2mm extrusion height in mind. Any higher and no
+guarantee this will print properly.
+
+It's highly suggested to do a print test with the small clips, to be sure
+measurements are correct. This will save you from printing the entire stand,
+only to discover the parts do not clip together.
+
 ## Motivation
 
 This was originally inspired by book stands and designed for creating a stand
