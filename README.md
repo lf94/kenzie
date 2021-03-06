@@ -17,6 +17,14 @@ Open the `main.scad` file and edit the `stand_*` parameters.
 In the rare case it may be necessary to edit the `config.scad` file to adjust
 the extrusion height measurement.
 
+## Building
+
+Run `make` and each part is output to `stl/`. You can also open `main.scad` in
+OpenSCAD and you'll see the full result.
+
+NOTE: OpenCSG mode has a lot of "z-fighting", meaning you'll see a lot of
+flicking faces. This is ok - when rendering, this is resolved.
+
 ## Motivation
 
 This was originally inspired by book stands and designed for creating a stand
