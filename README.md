@@ -6,6 +6,8 @@ angles.
 ![The front of the stand.](./renders/front.png)
 ![The back of the stand.](./renders/back.png)
 
+(These renders are not exact.)
+
 This stand's default holding dimensions are 55mm by 142mm - big enough for a
 smartphone. Don't let this stop you from adjust the parameters to generate new
 types of stands!
