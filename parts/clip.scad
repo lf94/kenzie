@@ -39,30 +39,30 @@ module clip_male(width, radius) {
 }
 
 module clip_female(width, radius) {
-  additional_width = extrude_width * 2.0;
+  additional_width = (extrude_width / 2.0);
   radius_e = radius + additional_width;
   width_e = width - (extrude_width * 8.0);
 
   cylinder_stand_width = stand_width(width_e);
   clip_width = width_e - (cylinder_stand_width * 2.0) - (extrude * 2.0);
 
-  translate([0, -additional_width, extrude_width * -3.0])
+  translate([0, -additional_width, 0])
   union() {
     rotate([0, 0, 180])
     difference() {
       cube([
           clip_width,
-          radius_e * 3.0,
-          radius_e * 3.0
+          radius_e * 4.0,
+          radius_e * 4.0
         ], center = true
       );
 
       // The "pinchers" for the pin to pass to be secure.
-      translate([0, radius_e / 2.0, radius_e * -1.5])
-      cube([clip_width / 2.0, radius_e * 2.0, radius_e * 3.0]);
+      translate([0, radius_e / 2.0, radius_e * -2.0])
+      cube([clip_width / 2.0, radius_e * 2.0, radius_e * 4.0]);
 
-      translate([clip_width / -2.0, radius_e / 2.0, radius_e * -1.5])
-      cube([clip_width / 2.0, radius_e * 2.0, radius_e * 3.0]);
+      translate([clip_width / -2.0, radius_e / 2.0, radius_e * -2.0])
+      cube([clip_width / 2.0, radius_e * 2.0, radius_e * 4.0]);
 
       translate([0, 0, 0])
       rotate([0, 90, 0])
@@ -74,14 +74,14 @@ module clip_female(width, radius) {
     translate([-radius_e, radius_e / -1.5, 0])
     cylinder(clip_width, r = radius_e / 5.0, center = true);
 
-    translate([0, radius_e / -1.5, (radius_e * 1.5) - ((radius_e / 2.0) / 2.0)])
-    cube([clip_width, radius_e / 2.5, radius_e / 2.0], center = true);
+    translate([0, radius_e / -1.5, radius_e * 1.5])
+    cube([clip_width, radius_e / 2.5, radius_e], center = true);
 
     rotate([0, 90, 0])
     translate([radius_e, radius_e / -1.5, 0])
     cylinder(clip_width, r = radius_e / 5.0, center = true);
 
-    translate([0, radius_e / -1.5, -(radius_e * 1.5) + ((radius_e / 2.0) / 2.0)])
-    cube([clip_width, radius_e / 2.5, radius_e / 2.0], center = true);
+    translate([0, radius_e / -1.5, radius_e * -1.5])
+    cube([clip_width, radius_e / 2.5, radius_e], center = true);
   }
 }

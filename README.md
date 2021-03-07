@@ -41,6 +41,11 @@ only to discover the parts do not clip together.
 This was originally inspired by book stands and designed for creating a stand
 for the Retroid Pocket 2 handheld gaming device.
 
+## Acknowledgements
+
+This project would not have been possible without the very generous help of
+/u/modernjess of reddit.com.
+
 ## License
 
 This work is licensed under the Creative Commons

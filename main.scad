@@ -75,7 +75,7 @@ module stand() {
     translate([0, stand_width / 3.0, clip_radius])
     rotate([-90, 0, 0])
     clip_male(arm_width, clip_radius);
-    translate([0, stand_width / 3.0 - clip_radius * 5.0, (clip_radius * 1.5) + (extrude_width / 2.0)])
+    translate([0, stand_width / 3.0 - clip_radius * 5.0, clip_radius * 2.0 + extrude * 1.0])
     rotate([-90, 0, 0])
     clip_female(arm_width, clip_radius);
   }
