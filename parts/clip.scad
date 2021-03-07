@@ -46,7 +46,7 @@ module clip_female(width, radius) {
   cylinder_stand_width = stand_width(width_e);
   clip_width = width_e - (cylinder_stand_width * 2.0) - (extrude * 2.0);
 
-  translate([0, -additional_width, additional_width * -2.0])
+  translate([0, -additional_width, extrude_width * -3.0])
   union() {
     rotate([0, 0, 180])
     difference() {
