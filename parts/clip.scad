@@ -64,9 +64,10 @@ module clip_female(width, radius) {
       translate([clip_width / -2.0, radius_e / 2.0, radius_e * -2.0])
       cube([clip_width / 2.0, radius_e * 2.0, radius_e * 4.0]);
 
+      // The inner cylinder which will hold the male clip.
       translate([0, 0, 0])
       rotate([0, 90, 0])
-      cylinder(clip_width, r = radius_e, center = true);
+      cylinder(clip_width, r = radius + (additional_width / 2.0), center = true);
     }
 
     // The tips of the "pinchers".
