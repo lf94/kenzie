@@ -10,5 +10,10 @@ extrude = 0.2;
 // Use the common width of 0.4mm.
 extrude_width = 0.4;
 
+// Modes to indicate how to render the object.
+RENDER_NORMAL = 0;
+RENDER_EFFICIENT = 1;
+render_mode = RENDER_EFFICIENT;
+
 // Number of fragments to use when generating smooth surfaces.
 $fn = 40;

@@ -25,6 +25,12 @@ module arm(width, depth, height) {
           center = true
         );
       }
+
+      translate([0, depth / 2.0, ((height / -2.0) + (depth * 2.0) - (depth / 2.0))])
+      cube(
+        [(width / 3.0), depth, depth * 4.0],
+        center = true
+      );
     }
   }
 }

@@ -60,14 +60,14 @@ module stand() {
   }
 
   if (arm || all) {
-    translate([0, -stand_thickness * 4.0, (arm_height / 2.0) + (stand_thickness * -2.25)])
-    rotate([90, 0, 0])
+    translate([0, arm_width / 2.0, (arm_height / 2.0) + (stand_thickness * -2.25)])
+    rotate([90, 0, 180])
     arm(arm_width, stand_thickness, arm_height);
   }
 
   if (kick || all) {
-    translate([0, -stand_thickness * 8.0, (kick_height / -2.0) + (stand_thickness * -1.5)])
-    rotate([90, 0, 0])
+    translate([0, (kick_height / -2.0) - clip_male_height(clip_radius) / 2.0, (kick_height / -2.0) + (stand_thickness * -1.5)])
+    rotate([90, -180, 180])
     kick(kick_width, stand_thickness, kick_height);
   }
 
@@ -75,7 +75,8 @@ module stand() {
     translate([0, stand_width / 3.0, clip_radius])
     rotate([-90, 0, 0])
     clip_male(arm_width, clip_radius);
-    translate([0, stand_width / 3.0 - clip_radius * 5.0, clip_radius * 2.0 + extrude * 1.0])
+
+    translate([0, stand_width / 3.0 - stand_thickness * 3.0, clip_female_height(clip_radius) / 2.0])
     rotate([-90, 0, 0])
     clip_female(arm_width, clip_radius);
   }
