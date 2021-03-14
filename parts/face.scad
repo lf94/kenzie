@@ -44,7 +44,7 @@ module face(dimensions, arm_width, kick_width, rotator_gap)
   clip_lip_depth = width / 5.0;
   clip_radius = depth / 2.0;
 
-  clip_vertical_align = 0.25;
+  clip_vertical_align = 0.20;
 
   // The flat side of the face.
   flat([width, depth, height], rotator_gap, clip_radius);
