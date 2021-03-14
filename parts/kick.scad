@@ -1,30 +1,28 @@
 include <../config.scad>
 use <./hinge.scad>
 
-//
-// The cuts in the kick which the arm goes through.
-//
-
 function cut_height(height) = height + (extrude * 4.0);
 
 //
 // Creating a single cut.
 //
 
-module kick_cut(width = 1, depth = 1, height = 2) {
-  translate([width / -2.0, height / -2.0, 0])
-  hull() {
-    translate([0, height / 2.0, depth])
-    linear_extrude(height = extrude) {
-        hull() {
-          square([width, height]);
-      }
-    }
+module kick_cut(dimensions) {
+  width = dimensions[0];
+  depth = dimensions[1];
+  height = dimensions[2];
 
+  cut_y = height / 2.0;
+  cut_ds = [width, height];
+
+  translate([width / -2.0, -cut_y, 0])
+  hull() {
+    translate([0, cut_y, depth])
     linear_extrude(height = extrude) {
-        hull() {
-          square([width, height]);
-      }
+      square(cut_ds);
+    }
+    linear_extrude(height = extrude) {
+      square(cut_ds);
     }
   }
 }
@@ -42,7 +40,7 @@ module kick_cuts(dimensions, total) {
   for(n = [0 : 1 : total - 1]) {
     translate([0, 0, n * cut_height(height)])
     rotate([90, 0, 0])
-    kick_cut(width, depth, height);
+    kick_cut(dimensions);
   }
 }
 
@@ -99,7 +97,8 @@ module kick(width, depth, height) {
         cut_width * 2.0,
         depth + extrude,
         depth + (extrude * 2.0)
-      ], (height / cut_height(depth)) - 1
+      ],
+      (height / cut_height(depth)) - 1
     );
   }
 }

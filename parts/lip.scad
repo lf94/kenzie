@@ -15,30 +15,33 @@ module lip(dimensions, rotator_gap) {
   rotator_x = width / 2.0;
   rotator_y = (depth / -2.0) - height;
   rotator_z = height / -2.0;
+  
+  rotator_ds = [depth, height];
+
+  gap_y = rotator_y + height;
+  gap_z = rotator_z;
+
+  rotator_gap_ds = [
+    rotator_gap - stub_width(rotator_gap),
+    height / 2.0,
+    height
+  ];
 
   difference() {
-    cube([width, depth, height], center = true);
+    cube(dimensions, center = true);
 
-    translate([
-      -rotator_x + stub_width(rotator_gap),
-      rotator_y + height,
-      rotator_z
-    ])
-    cube([rotator_gap - stub_width(rotator_gap), height / 2.0, height]);
+    translate([-rotator_x + stub_width(rotator_gap), gap_y, gap_z])
+    cube(rotator_gap_ds);
 
-    translate([
-      rotator_x - stub_width(rotator_gap) * 2.5,
-      rotator_y + height,
-      rotator_z
-    ])
-    cube([rotator_gap - stub_width(rotator_gap), height / 2.0, height]);
+    translate([rotator_x - stub_width(rotator_gap) * 2.5, gap_y, gap_z])
+    cube(rotator_gap_ds);
   }
 
   translate([-rotator_x, rotator_y, rotator_z])
-  rotator([depth, height], rotator_gap, RIGHT);
+  rotator(rotator_ds, rotator_gap, RIGHT);
 
   translate([rotator_x, rotator_y, rotator_z])
-  rotator([depth, height], rotator_gap, LEFT);
+  rotator(rotator_ds, rotator_gap, LEFT);
 }
 
 module rotator(dimensions, rotator_gap, direction) {
