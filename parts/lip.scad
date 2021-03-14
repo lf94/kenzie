@@ -1,5 +1,5 @@
 include <../config.scad>
-use <./clip.scad>
+use <./hinge.scad>
 
 function stub_width(width) = (width - stand_width(width)) / 2.0;
 

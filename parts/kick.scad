@@ -1,5 +1,5 @@
 include <../config.scad>
-use <./clip.scad>
+use <./hinge.scad>
 
 //
 // The cuts in the kick which the arm goes through.
@@ -73,14 +73,14 @@ module flat(dimensions) {
 //
 
 module kick(width, depth, height) {
-  clips_bottom_z = height / 2.0 + depth;
-  clip_depth = width / 5.0;
+  hinges_bottom_z = height / 2.0 + depth;
+  hinge_depth = width / 5.0;
 
-  translate([-((width / 2.0) - (clip_depth / 2.0)), 0, clips_bottom_z])
-  clip_male(clip_depth, depth / 2.0);
+  translate([-((width / 2.0) - (hinge_depth / 2.0)), 0, hinges_bottom_z])
+  pin(hinge_depth, depth / 2.0);
 
-  translate([(width / 2.0) - (clip_depth / 2.0), 0, clips_bottom_z])
-  clip_male(clip_depth, depth / 2.0);
+  translate([(width / 2.0) - (hinge_depth / 2.0), 0, hinges_bottom_z])
+  pin(hinge_depth, depth / 2.0);
 
   flat([width, depth, height]);
 

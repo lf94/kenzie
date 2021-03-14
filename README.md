@@ -32,7 +32,7 @@ flicking faces. This is ok - when rendering, this is resolved.
 This model was built with a 0.2mm extrusion height and 0.4mm extrusion nozzle
 in mind. Any higher and no guarantee this will print properly.
 
-It's highly suggested to do a print test with the small clips, to be sure
+It's highly suggested to do a print test with the hinges, to be sure
 measurements are correct. This will save you from printing the entire stand,
 only to discover the parts do not clip together.
 

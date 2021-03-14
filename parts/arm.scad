@@ -1,10 +1,10 @@
-use <./clip.scad>
+use <./hinge.scad>
 
 module arm(width, depth, height) {
   translate([0, 0, -depth])
   union() {
     translate([0, 0, (height / 2.0)])
-    clip_male(width, depth / 2.0);
+    pin(width, depth / 2.0);
 
     difference() {
       cube(
