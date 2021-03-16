@@ -71,6 +71,6 @@ module rotator(dimensions, rotator_gap, direction) {
       height * 1.5,
     ])
     rotate([0, 90, 0])
-    cylinder(rotator_gap - (extrude * 8.0), r = height_half, center = true);
+    cylinder(rotator_gap - (profile * 8.0), r = height_half, center = true);
   }
 }

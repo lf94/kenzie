@@ -1,7 +1,7 @@
 include <../config.scad>
 use <./hinge.scad>
 
-function cut_height(height) = height + (extrude * 4.0);
+function cut_height(height) = height + (profile * 4.0);
 
 //
 // Creating a single cut.
@@ -18,10 +18,10 @@ module kick_cut(dimensions) {
   translate([width / -2.0, -cut_y, 0])
   hull() {
     translate([0, cut_y, depth])
-    linear_extrude(height = extrude) {
+    linear_extrude(height = profile) {
       square(cut_ds);
     }
-    linear_extrude(height = extrude) {
+    linear_extrude(height = profile) {
       square(cut_ds);
     }
   }
@@ -95,8 +95,8 @@ module kick(width, depth, height) {
 
     kick_cuts([
         cut_width * 2.0,
-        depth + extrude,
-        depth + (extrude * 2.0)
+        depth + profile,
+        depth + (profile * 2.0)
       ],
       (height / cut_height(depth)) - 1
     );

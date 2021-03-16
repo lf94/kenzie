@@ -1,10 +1,10 @@
 include <../config.scad>
 
-function width_e(width) = width - (extrude_width * 8.0);
+function width_e(width) = width - (nozzle_diameter * 8.0);
 
-function knuckle_height(radius) = (radius + (extrude_width / 2.0)) * 4.0;
+function knuckle_height(radius) = (radius + (nozzle_diameter / 2.0)) * 4.0;
 function knuckle_width(width) =
-  width_e(width) - (stand_width(width_e(width)) * 2.0) - (extrude * 2.0);
+  width_e(width) - (stand_width(width_e(width)) * 2.0) - (profile * 2.0);
 
 function pin_height(radius) = (radius * 2.0) + (radius * 2.0);
 function pin_width(radius) = (radius * 2.0) + (radius * 2.0);
@@ -41,7 +41,7 @@ module pin(width, radius) {
 }
 
 module knuckle(width, radius) {
-  additional_width = (extrude_width / 2.0);
+  additional_width = (nozzle_diameter / 2.0);
   radius_e = radius + additional_width;
   inner_radius_e = radius + (additional_width / 2.0);
 
